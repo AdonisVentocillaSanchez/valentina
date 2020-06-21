@@ -1,0 +1,35 @@
+<!-- El header va en la parte superior de nuestra página. Incluiremos el logo de linio -->
+<header>
+    <!-- Usaremos h1 para ponerle un título a nuestra página web -->
+    <h1>Linio Express</h1>
+
+    <!-- Al hacerle click al logo de linio se regresa a la página de inicio -->
+    <a href="{{ url_for('home') }}">
+        <img src="https://linio-express.s3-sa-east-1.amazonaws.com/logos/Linio_logo.svg" height="100">
+    </a><br><br>
+    <!--Menu logueo usuario-->
+    {% if session['type'] == 1%}
+
+    <h2>¡Hola {{ session['user_name'] or '' }}!</h2>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a><br>
+    <a href="{{ url_for('view_cart') }}">Ver mi carrito</a><br>
+    <h2>Tenemos los mejores productos en todas las categorías para tí</h2>
+
+    <!--Menu logueo Comercio-->
+    {% elif session['type'] == 2 %}
+
+    <h2> RUC : {{session['user_name']}}</h2>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a><br>
+    <a href="{{ url_for('registrarProducto') }}">Añadir un producto</a>
+
+    {% else %}
+
+    <!-- Ponemos un enlace para que el usuario ingrese a su cuenta y otro para el registro -->
+    <a href="{{ url_for('login') }}">Iniciar sesión</a> <br>
+    <a href="{{ url_for('loginComercio') }}">Iniciar sesión como Comercio</a>
+    <br>
+    <a href="{{ url_for('registration') }}">Registrarse</a>
+
+    {% endif %}
+    <br><br>
+</header>

@@ -1,0 +1,38 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+<!-- Header con logo de Linio -->
+{% include '/layouts/header.html' %}
+
+<!-- Título de la página -->
+<h1>Agrega un producto</h1>
+
+<!-- Mensaje de error -->
+{% if error %}
+  <h3 style="color:Tomato;">{{error}}</h3>
+{% endif %}
+
+
+<!--Formulario de registro -->
+<form role="form" id="registerProduct", method="post">
+    <!-- Input de nombre -->
+    <label for="nombre">Nombre</label><br>
+    <input id="nombre" type="text" name="nombre"><br><br>
+    <!-- Input de Categoria -->
+    <label for="categoria">Código de Categoría(1..8)</label><br>
+    <input id="categoria" type="text" name="categoria"><br><br>
+    <!-- Input de descripcion -->
+    <label for="descripcion">Descripción</label><br>
+    <input id="descripcion" type="text" name="descripcion"><br><br>
+    <!-- Input de precio -->
+    <label for="precio">Precio</label><br>
+    <input id="precio" type="text" name="precio"><br><br>
+    <!-- Input de Tienda -->
+    <label for="tienda">Tienda</label><br>
+    <input id="tienda" type="text" name="tienda"><br><br>
+    <!-- Input de Stock -->
+    <label for="stock">Stock</label><br>
+    <input id="stock" type="text" name="stock"><br><br>
+    <button type="submit">Registrar Producto</button>
+</form>
+
+{% endblock %}

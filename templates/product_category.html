@@ -1,0 +1,13 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+
+<!-- En una lista pondremos los productos disponibles -->
+{% for product in product_list %}
+    {%for item in product %}
+        <p>{{item}}</p>
+    {% endfor %}
+{% endfor %}
+
+<!-- Footer -->
+{% include '/layouts/footer.html' %}
+{% endblock %}

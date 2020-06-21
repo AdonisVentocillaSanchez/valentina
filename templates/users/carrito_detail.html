@@ -1,0 +1,29 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+<!-- Header con logo de Linio -->
+{% include '/layouts/header.html' %}
+
+{% if error %}
+  <h3 style="color:Tomato;">{{error}}</h3>
+{% endif %}
+
+<!-- Detalle del producto-->
+    <h2>Carrito de Compras</h2>
+    {% if product %}
+    {% for prod in product %}
+    <div>
+        <p>Cantidad de productos: {{prod[3]}} </p>
+        <p>Costo total: {{prod[2]}}</p>
+        <!-- <a href="{{ url_for('product_detail', id_producto = product[0]) }}">Ver producto</a> -->
+    </div>
+    {% endfor %}
+    {% else %}
+    <div>
+        <p>Aún no tienes productos en tu carrito</p>
+    </div>
+    {% endif %}
+
+
+<!-- Footer -->
+{% include '/layouts/footer.html' %}
+{% endblock %}

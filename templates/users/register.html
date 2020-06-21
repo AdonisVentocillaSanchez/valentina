@@ -1,0 +1,53 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+<!-- Header con logo de Linio -->
+{% include '/layouts/header.html' %}
+
+<!-- Título de la página -->
+<h1>Crea tu cuenta en Linio Express</h1>
+
+<!-- Mensaje de error -->
+{% if error %}
+  <h3 style="color:Tomato;">{{error}}</h3>
+{% endif %}
+
+
+<!--Formulario de registro -->
+<form role="form" id="SignUpForm", method="post">
+    <!-- Input de nombre -->
+    <label for="primer_nombre">Primer Nombre</label><br>
+    <input id="primer_nombre" type="primer_nombre" name="primer_nombre"><br><br>
+    <!-- Input de primer apellido -->
+    <label for="primer_apellido">Primer Apellido</label><br>
+    <input id="primer_apellido" type="primer_apellido" name="primer_apellido"><br><br>
+    <!-- Input de segundo apellido -->
+    <label for="segundo_apellido">Segundo Apellido</label><br>
+    <input id="segundo_apellido" type="segundo_apellido" name="segundo_apellido"><br><br>
+    <!-- Input de edad -->
+    <label for="edad">Edad</label><br>
+    <input id="edad" type="edad" name="edad"><br><br>
+    <!-- Input de correo electronico -->
+    <label for="correo_electronico">Correo electrónico</label><br>
+    <input id="correo_electronico" type="correo_electronico" name="correo_electronico"><br><br>
+    <!-- Input de Telefono -->
+    <label for="telefono">Teléfono</label><br>
+    <input id="telefono" type="telefono" name="telefono"><br><br>
+    <!-- Input de Nro Tarjeta Bancaria -->
+    <label for="nro_tarjeta_bancaria">Nro Tarjeta Bancaria</label><br>
+    <input id="nro_tarjeta_bancaria" type="nro_tarjeta_bancaria" name="nro_tarjeta_bancaria"><br><br>
+    <!-- Input de nombre usuario -->
+    <label for="nombre_usuario">Nombre de usuario</label><br>
+    <input id="nombre_usuario" type="nombre_usuario" name="nombre_usuario"><br><br>
+    <!-- Input de contraseña -->
+    <label for="contrasena">Contraseña</label><br>
+    <input id="contrasena" type="password" name="contrasena"><br><br>
+    <!-- Botón para enviar datos del formualario -->
+    <button type="submit">Registrarse</button>
+</form>
+
+
+<!-- Enlace a Inicio de sesión en caso el usuario ya tenga cuenta -->
+<h3>¿Ya tienes una cuenta en Linio?</h3>
+<a href="{{ url_for('login') }}">Iniciar sesión</a>
+
+{% endblock %}
