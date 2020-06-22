@@ -145,7 +145,7 @@ def registrarProducto():
         tienda = request.form["tienda"]
         stock = int(request.form["stock"])
 
-        producto = Producto(
+        produc = Producto(
             nombre=nombre,
             codigo_categoria=categoria,
             descripcion=descripcion,
@@ -154,12 +154,12 @@ def registrarProducto():
             stock=stock
         )
 
-        estado_op = producto.agregar_producto()
+        estado_op = produc.agregar_producto()
 
-        if estado_op:
+        if produc:
             return redirect("/")
         else:
-            error = 'Invalid email'
+            error = 'Verifique los datos'
             return render_template('users/registerProduct.html', error=error)
 
     return render_template('users/registerProduct.html')

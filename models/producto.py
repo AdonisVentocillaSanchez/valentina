@@ -115,12 +115,12 @@ class Producto(object):
         database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
         try:
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            cod = self.generar_codigo()
             query = '''
-                INSERT INTO producto(codigo_producto, codigo_categoria, nombre, descripcion, precio, tienda, stock)
-                        VALUES ('{}','{}','{}', '{}', '{}','{}','{}')
-                        '''.format(self.generar_codigo(), self.codigo_categoria,self.nombre, self.descripcion, self.precio, self.tienda,self.stock)
+                INSERT INTO producto(codigo_producto, codigo_carrito, codigo_categoria, nombre, descripcion, precio, tienda, stock)
+                        VALUES ({}, {}, {}, '{}', '{}', {}, '{}', {})
+                        '''.format(cod,0, self.__codigo_categoria,self.__nombre, self.__descripcion, self.__precio, self.__tienda,self.__stock)
             cursor.execute(query)
-            print('a')
             database.commit()  # CONFIRMAR CAMBIOS QUERY
             estado_op = True
         except Exception as e:
