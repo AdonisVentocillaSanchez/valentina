@@ -42,6 +42,7 @@ class Carrito(object):
         estado_op = False
         database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
         try:
+            #Primero verificamos si el usuario tiene algun registro con status activo(1) en su carrito
             cursor1 = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
                 SELECT * FROM carrito where codigo_usuario={} AND status=1'''.format(cod_usu)
@@ -50,6 +51,7 @@ class Carrito(object):
             
 
             if not result:
+            #Si no cuenta con algun registro, creamos uno nuevo
                 cursor2 = database.cursor()  # OBTENER OBJETO CURSOR
                 query = '''
                 INSERT INTO carrito(codigo_usuario, precio_total, cantidad_producto, status)
@@ -59,6 +61,7 @@ class Carrito(object):
                 database.commit()  # CONFIRMAR CAMBIOS QUERY
                 estado_op = True
             else:
+                #Si ya cuenta con su registro, actualiamos los datos
                 cursor3 = database.cursor()  # OBTENER OBJETO CURSOR
                 query = '''
                 UPDATE carrito SET precio_total=precio_total + {} , cantidad_producto=cantidad_producto+1 

@@ -1,0 +1,47 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+<!-- Header con logo de Linio -->
+{% include '/layouts/header.html' %}
+
+<!-- Título de la página -->
+<h1>Completar pedido</h1>
+
+<!-- Mensaje de error -->
+{% if error %}
+  <h3 style="color:Tomato;">{{error}}</h3>
+{% endif %}
+
+
+<!--Formulario de registro -->
+<form role="form" id="registerPedido", method="post">
+    <!-- Input de ntarjeta -->
+    <label for="tarjeta">Numero de tarjeta</label><br>
+    <input id="tarjeta" type="text" name="tarjeta"><br><br>
+    <!-- Input de expiracion -->
+    <label for="expiracion">Fecha de expiracion</label><br>
+    <input id="expiracion" type="date" name="expiracion"><br><br>
+    <!-- Input de CVV -->
+    <label for="cvv">CVV</label><br>
+    <input id="cvv" type="text" name="cvv"><br><br>
+    <!-- Input de provincia -->
+    <label for="provincia">Provincia</label><br>
+    <input id="provincia" type="text" name="provincia"><br><br>
+    <!-- Input de distrito -->
+    <label for="distrito">Distrito</label><br>
+    <input id="descripcion" type="text" name="descripcion"><br><br>
+    <!-- Input de direccion -->
+    <label for="direccion">Direccón de envío</label><br>
+    <input id="direccion" type="text" name="direccion"><br><br>
+    <!-- Input de RUC -->
+    <label for="ruc">RUC (*) solo si desea factura</label><br>
+    <input id="ruc" type="text" name="ruc"><br><br>
+    <!-- Input de Tipo de comprobante -->
+    <label for="comprobante">Tipo de comprobante</label><br>
+    <select id="comprobante"name="comprobante">
+        <option value="boleta">Boleta</option>
+        <option value="factura">Factura</option>
+    </select><br><br>
+    <button type="submit">Completar pedido</button>
+</form>
+
+{% endblock %}

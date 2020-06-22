@@ -9,7 +9,42 @@ class Comercio(object):
         self.contrasena = contrasena
         self.ListaProducto = []
 
-    def obtener_comercio(ruc:str):
+    @property
+    def codigo_comercio(self):
+        return self.__codigo_comercio
+    @codigo_comercio.setter
+    def codigo_comercio(self, pcodigo_comercio):
+        self.__codigo_comercio = pcodigo_comercio
+
+    @property
+    def nombre(self):
+        return self.__nombre
+    @codigo_comercio.setter
+    def nombre(self, pnombre):
+        self.__nombre = pnombre
+
+    @property
+    def direccion(self):
+        return self.__direccion
+    @direccion.setter
+    def direccion(self, pdireccion):
+        self.__direccion = pdireccion
+
+    @property
+    def RUC(self):
+        return self.__RUC
+    @RUC.setter
+    def RUC(self, pRUC):
+        self.__RUC = pRUC
+
+    @property
+    def ListaProducto(self):
+        return self.__ListaProducto
+    @ListaProducto.setter
+    def ListaProducto(self, pListaProducto):
+        self.__ListaProducto = pListaProducto
+    
+    def obtener_comercio(self, ruc:str):
         comercio=None
         try:
             database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
@@ -37,38 +72,3 @@ class Comercio(object):
         finally:
                 database.close()
         return comercio
-
-@property
-def codigo_comercio(self):
-    return self.__codigo_comercio
-@codigo_comercio.setter
-def codigo_comercio(self, pcodigo_comercio):
-    self.__codigo_comercio = pcodigo_comercio
-
-@property
-def nombre(self):
-    return self.__nombre
-@codigo_comercio.setter
-def nombre(self, pnombre):
-    self.__nombre = pnombre
-
-@property
-def direccion(self):
-    return self.__direccion
-@direccion.setter
-def direccion(self, pdireccion):
-    self.__direccion = pdireccion
-
-@property
-def RUC(self):
-    return self.__RUC
-@RUC.setter
-def RUC(self, pRUC):
-    self.__RUC = pRUC
-
-@property
-def ListaProducto(self):
-    return self.__ListaProducto
-@ListaProducto.setter
-def ListaProducto(self, pListaProducto):
-    self.__ListaProducto = pListaProducto

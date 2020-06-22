@@ -86,7 +86,8 @@ def login():
 @app.route('/inicio-sesion-comercio', methods=["get","post"])
 def loginComercio():
     if request.method == "POST":
-        comercio = Ccomercio.obtener_comercio(ruc=request.form["ruc"])
+        ruc=request.form["ruc"]
+        comercio = Ccomercio.obtener_comercio(ruc=ruc)
 
         if request.form["password"] == comercio.contrasena:
 
@@ -215,7 +216,7 @@ def add_cart(id_producto):
     return render_template("users/products_list.html",error = precio_prod)
     
 
-#Ruta para listar un producto
+#Ruta para listar un el carrito de compras
 @app.route('/carrito')
 @login_required
 def view_cart():
@@ -224,6 +225,30 @@ def view_cart():
 
     return render_template("users/carrito_detail.html", product=carrito)
 
+#Ruta para realizar un pedido a partir del carrito de compras
+@app.route('/pedido', methods=["get","post"])
+@login_required
+def registrarPedido():
+
+    if request.method == "POST":
+        provincia = request.form["provincia"]
+        direccion = request.form["direccion"]
+        distrito = request.form["distrito"]
+        ruc = int(request.form["ruc"])
+        comprobante = request.form["comprobante"]
+        tarjeta = request.form["tarjeta"]
+        expiracion = request.form["direccion"]
+        cvv = request.form["cvv"]
+
+        
+
+        if 1:
+            return redirect("/")
+        else:
+            error = 'No se ha podido pocesar tu compra'
+            return render_template('users/registerPedido.html', error=error)
+
+    return render_template('users/registerProduct.html')
 
 if __name__ == "__main__":
     app.secret_key = "clave_super_ultra_secreta"
