@@ -79,14 +79,14 @@ class Carrito(object):
 
             return estado_op
 
-    #Buscar los productos por cada categoria
+    
     def listar_carrito(self, id_user:int):
         list = None
         database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
         try:
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
-                SELECT * FROM carrito where codigo_usuario={} AND status=1'''.format(id_user)
+                SELECT * FROM carrito where codigo_usuario={} AND status=1 LIMIT 1'''.format(id_user)
             cursor.execute(query)
             list = cursor.fetchall()
             return list
@@ -95,6 +95,7 @@ class Carrito(object):
             print("Error: {}".format(e))
         finally:
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
+
 
     #Funcion para cambiar de estado el carrito
     def cambiar_estado_carrito(self, id_user:int) -> bool:

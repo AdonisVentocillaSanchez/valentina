@@ -232,7 +232,7 @@ def registrarPedido():
 
     userid = session["user_id"]
     carrito_list = Ccarrito.listar_carrito(id_user=userid)
-    carritoid = carrito_list[0][0]
+    carritoid = carrito_list[[0]]
     if request.method == "POST":
         provincia = request.form["provincia"]
         direccion = request.form["direccion"]

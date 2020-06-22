@@ -1,0 +1,25 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+<!-- Header con logo de Linio -->
+{% include '/layouts/header.html' %}
+
+
+{% if error %}
+  <h3 style="color:Tomato;">{{error}}</h3>
+{% endif %}
+
+{% if message %}
+  <h3 style="color:Tomato;">{{message}}</h3>
+{% endif %}
+
+<!-- EMostramos todos los datos para un comprobante-->
+{% if carrito_list %}
+<div>
+    <p>USUARIO: {{user[1]}}</p>
+    <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="100"><br>
+</div>
+{% endif %}
+
+<!-- Footer -->
+{% include '/layouts/footer.html' %}
+{% endblock %}
