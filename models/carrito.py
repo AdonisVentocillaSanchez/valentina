@@ -95,3 +95,23 @@ class Carrito(object):
             print("Error: {}".format(e))
         finally:
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
+
+    #Funcion para cambiar de estado el carrito
+    def cambiar_estado_carrito(self, id_user:int) -> bool:
+        estado_op = False
+        database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+        try:
+            cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+                UPDATE carrito SET status=0 
+                        WHERE codigo_carrito = '{}'
+                        '''.format(id_user)
+            cursor.execute(query)
+            database.commit()  # CONFIRMAR CAMBIOS QUERY
+            estado_op = True
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return estado_op

@@ -263,6 +263,7 @@ def registrarPedido():
         result = Pedid.generar(id_user=userid, id_cart=carritoid)
 
         if result:
+            Ccarrito.cambiar_estado_carrito(id_user= carritoid)
             message = 'Se ha completado tu compra'
             return render_template('users/registerPedido.html', message=message)
         else:
