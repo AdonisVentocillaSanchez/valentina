@@ -1,6 +1,7 @@
 from datetime import datetime
 from models.carrito import Carrito
 import sqlite3
+import datetime
 
 class Pedido(object):
     def __init__(self, codigo_pedido:int=None, estado:str=None, repartidor:str=None,
@@ -97,5 +98,24 @@ class Pedido(object):
     def ListaUsuario(self, pListaUsuario):
         self.__ListaUsuario = pListaUsuario
 
-    def generar(id_):
-        pass
+    #Funcion para añadir un pedido
+    def generar(self, id_cart:int, id_user:int) -> bool:
+        estado_op = False
+        database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+        fecha = datetime.date.today()
+        try:
+            cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+                INSERT INTO pedido(codigo_usuario, codigo_carrito, estado, repartidor, tipo_comprobante, metodo_pago, direccion_envio, area_reparto, tarifa_envio, fecha_entrega, fecha_emision)
+                        VALUES ({}, {}, '{}', '{}', '{}', '{}','{}','{}',{}, {}, {})
+                        '''.format(id_user, id_cart, self.__estado,self.__repartidor, self.__tipo_comprobante, self.__metodo_pago, self.__direccion_envio,self.__area_reparto, self.__tarifa_envio, fecha, fecha)
+            cursor.execute(query)
+            database.commit()  # CONFIRMAR CAMBIOS QUERY
+            estado_op = True
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+
+        return estado_op

@@ -11,7 +11,25 @@
   <h3 style="color:Tomato;">{{error}}</h3>
 {% endif %}
 
+<!-- Detalle del producto-->
+<h2>Carrito de Compras</h2>
+{% if product %}
+{% for prod in product %}
+<div>
+    <p>Cantidad de productos: {{prod[3]}} </p>
+    <p>Costo total: {{prod[2]}}</p>
+    <!-- <a href="{{ url_for('product_detail', id_producto = product[0]) }}">Ver producto</a> -->
+</div>
+{% endfor %}
+{% else %}
+<div>
+    <p>Aún no tienes productos en tu carrito</p>
+</div>
+{% endif %}
 
+{% if message %}
+<h3 style="color:Tomato;">{{message}}</h3>
+{% else %}
 <!--Formulario de registro -->
 <form role="form" id="registerPedido", method="post">
     <!-- Input de ntarjeta -->
@@ -28,7 +46,7 @@
     <input id="provincia" type="text" name="provincia"><br><br>
     <!-- Input de distrito -->
     <label for="distrito">Distrito</label><br>
-    <input id="descripcion" type="text" name="descripcion"><br><br>
+    <input id="distrito" type="text" name="distrito" value="Lima"><br><br>
     <!-- Input de direccion -->
     <label for="direccion">Direccón de envío</label><br>
     <input id="direccion" type="text" name="direccion"><br><br>
@@ -43,5 +61,6 @@
     </select><br><br>
     <button type="submit">Completar pedido</button>
 </form>
+{% endif %}
 
 {% endblock %}

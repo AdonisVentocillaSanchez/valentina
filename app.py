@@ -230,6 +230,9 @@ def view_cart():
 @login_required
 def registrarPedido():
 
+    userid = session["user_id"]
+    carrito_list = Ccarrito.listar_carrito(id_user=userid)
+    carritoid = carrito_list[0][0]
     if request.method == "POST":
         provincia = request.form["provincia"]
         direccion = request.form["direccion"]
@@ -239,16 +242,34 @@ def registrarPedido():
         tarjeta = request.form["tarjeta"]
         expiracion = request.form["direccion"]
         cvv = request.form["cvv"]
+        estado = "pagado"
+        repartidor = "Motorizado 1"
+        metodo = "tarjeta"
+        dir_envio = provincia+" / "+distrito+" / "+direccion
+        tarifa = 10
+        if distrito!="Lima":
+            tarifa = 15
 
-        
+        Pedid = Pedido(
+            estado=estado,
+            repartidor=repartidor,
+            tipo_comprobante=comprobante,
+            metodo_pago=metodo,
+            direccion_envio=dir_envio,
+            area_reparto=distrito,
+            tarifa_envio=tarifa
+        )
 
-        if 1:
-            return redirect("/")
+        result = Pedid.generar(id_user=userid, id_cart=carritoid)
+
+        if result:
+            message = 'Se ha completado tu compra'
+            return render_template('users/registerPedido.html', message=message)
         else:
             error = 'No se ha podido pocesar tu compra'
-            return render_template('users/registerPedido.html', error=error)
+            return render_template('users/registerPedido.html', carrito_list = carrito_list, error=error)
 
-    return render_template('users/registerProduct.html')
+    return render_template('users/registerPedido.html', carrito_list = carrito_list)
 
 if __name__ == "__main__":
     app.secret_key = "clave_super_ultra_secreta"
