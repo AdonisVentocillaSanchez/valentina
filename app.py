@@ -153,7 +153,6 @@ def registrarProducto():
             tienda=tienda,
             stock=stock
         )
-
         estado_op = produc.agregar_producto()
 
         if produc:
@@ -191,7 +190,8 @@ def product_category(id_categoria):
         product = Cproducto.buscar_producto_categoria(nombre, idCategoria)
 
         if not product:
-            return render_template("users/products_list.html",product_list=product, error = "Producto no encontrado")
+            error = "Producto no encontrado"
+            return render_template("users/products_list.html",product_list=product, error = error)
         else:
             return render_template("users/products_list.html",product_list=product)
 
@@ -201,15 +201,16 @@ def product_category(id_categoria):
 @app.route('/addcarrito/<id_producto>')
 def add_cart(id_producto):
     idProducto = int(id_producto)
-    product = Cproducto.buscar_producto(idProducto)
+    product = Cproducto.buscar_producto(idprod= idProducto)
     id_user = session["user_id"]
     precio_prod = product[5]
     stock = product[7]
     
     if stock>0:
-        Ccarrito.agregar(cod_usu=id_user, precio=precio_prod)
-        Cproducto.actualizar_producto_stock(id_prod=idProducto)
-        return render_template("users/products_list.html",message = "Producto añadido al carrito")
+        cartpe = Ccarrito.agregar(cod_usu=id_user, precio=precio_prod)
+        if cartpe:
+            Cproducto.actualizar_producto_stock(id_prod=idProducto)
+            return render_template("users/products_list.html",message = "Producto añadido al carrito")
     else:
         return render_template("users/products_list.html",message = "Disculpa, este producto está sin stock")
     

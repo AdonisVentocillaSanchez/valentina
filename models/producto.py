@@ -160,6 +160,7 @@ class Producto(object):
                 SELECT * FROM Producto WHERE codigo_producto={}'''.format(idprod)
             cursor.execute(query)
             producto= cursor.fetchone()
+            return producto
             database.commit()  # CONFIRMAR CAMBIOS QUERY
         except Exception as e:
             database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
@@ -210,7 +211,7 @@ class Producto(object):
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
     
     #Actualizar stock de un producto
-    def actualizar_producto_stock(self, id_prod:int):
+    def actualizar_producto_stock(self, id_prod:int) -> bool:
         estado_op = False
         database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
         try:
@@ -222,7 +223,7 @@ class Producto(object):
             database.commit()  # CONFIRMAR CAMBIOS QUERY
             estado_op = True
 
-            return list
+            return estado_op
         except Exception as e:
             database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
             print("Error: {}".format(e))

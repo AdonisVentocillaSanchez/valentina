@@ -40,45 +40,71 @@ class Carrito(object):
     #Añadir pedido
     def agregar(self, cod_usu:int, precio:int) -> bool:
         estado_op = False
-        database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+        cod_us = int(cod_usu)
+        creado = self.cartActivo(iduser=cod_us)    #Verificamos si se ha creado
+        if creado:
+            actualizar = self.cartActualizar(iduser=cod_us, precio=precio)
+            if actualizar:
+                estado_op = True
+                return estado_op
         try:
-            #Primero verificamos si el usuario tiene algun registro con status activo(1) en su carrito
-            cursor1 = database.cursor()  # OBTENER OBJETO CURSOR
-            query = '''
-                SELECT * FROM carrito where codigo_usuario={} AND status=1'''.format(cod_usu)
-            cursor1.execute(query)
-            result = cursor1.fetchall()
-            
-
-            if not result:
+            database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
             #Si no cuenta con algun registro, creamos uno nuevo
-                cursor2 = database.cursor()  # OBTENER OBJETO CURSOR
-                query = '''
-                INSERT INTO carrito(codigo_usuario, precio_total, cantidad_producto, status)
-                        VALUES ('{}','{}', 1, 1)
-                        '''.format(cod_usu, precio)
-                cursor2.execute(query)
-                database.commit()  # CONFIRMAR CAMBIOS QUERY
-                estado_op = True
-            else:
-                #Si ya cuenta con su registro, actualiamos los datos
-                cursor3 = database.cursor()  # OBTENER OBJETO CURSOR
-                query = '''
-                UPDATE carrito SET precio_total=precio_total + {} , cantidad_producto=cantidad_producto+1 
-                        WHERE codigo_usuario = '{}'
-                        '''.format(precio, cod_usu)
-                cursor3.execute(query)
-                database.commit()  # CONFIRMAR CAMBIOS QUERY
-                estado_op = True
+            cursor2 = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+            INSERT INTO carrito(codigo_usuario, precio_total, cantidad_producto, status)
+                    VALUES ('{}','{}', 1, 1)
+                    '''.format(cod_us, precio)
+            cursor2.execute(query)
+            database.commit()  # CONFIRMAR CAMBIOS QUERY
+            estado_op = True
 
         except Exception as e:
             database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
             print("Error: {}".format(e))
         finally:
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
-
             return estado_op
 
+    #Verificacion si hay carro activo
+    def cartActivo(self, iduser:int) -> bool:
+        status = False
+        try:
+            database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+            # Primero verificamos si el usuario tiene algun registro con status activo(1) en su carrito
+            cursor1 = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+                SELECT * FROM carrito where codigo_usuario={} AND status=1'''.format(iduser)
+            cursor1.execute(query)
+            result = cursor1.fetchone()
+            if result:
+                status = True
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return status
+
+    #Creación de un carrito
+    def cartActualizar(self, iduser:int, precio:int) -> bool:
+        status = False
+        try:
+            database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+            cursor3 = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+            UPDATE carrito SET precio_total=precio_total + {} , cantidad_producto=cantidad_producto+1 
+                    WHERE codigo_usuario = {}
+                    '''.format(precio, iduser)
+            cursor3.execute(query)
+            database.commit()  # CONFIRMAR CAMBIOS QUERY
+            status = True
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return status
     
     def listar_carrito(self, id_user:int):
         list = None
@@ -86,9 +112,9 @@ class Carrito(object):
         try:
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
-                SELECT * FROM carrito where codigo_usuario={} AND status=1 LIMIT 1'''.format(id_user)
+                SELECT * FROM carrito where codigo_usuario={} AND status=1 '''.format(id_user)
             cursor.execute(query)
-            list = cursor.fetchall()
+            list = cursor.fetchone()
             return list
         except Exception as e:
             database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR

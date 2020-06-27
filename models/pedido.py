@@ -101,14 +101,15 @@ class Pedido(object):
     #Funcion para añadir un pedido
     def generar(self, id_cart:int, id_user:int) -> bool:
         estado_op = False
-        database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+        cartid = id_cart
         fecha = datetime.date.today()
         try:
+            database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
                 INSERT INTO pedido(codigo_usuario, codigo_carrito, estado, repartidor, tipo_comprobante, metodo_pago, direccion_envio, area_reparto, tarifa_envio, fecha_entrega, fecha_emision)
                         VALUES ({}, {}, '{}', '{}', '{}', '{}','{}','{}',{}, {}, {})
-                        '''.format(id_user, id_cart, self.__estado,self.__repartidor, self.__tipo_comprobante, self.__metodo_pago, self.__direccion_envio,self.__area_reparto, self.__tarifa_envio, fecha, fecha)
+                        '''.format(cartid, id_cart, self.__estado,self.__repartidor, self.__tipo_comprobante, self.__metodo_pago, self.__direccion_envio,self.__area_reparto, self.__tarifa_envio, fecha, fecha)
             cursor.execute(query)
             database.commit()  # CONFIRMAR CAMBIOS QUERY
             estado_op = True
