@@ -21,14 +21,14 @@ for row in rows:
     print(row)
 
 #Inserta datos a la tabla carrito
-cursor.execute("""
-    INSERT INTO carrito (codigo_usuario, precio_total, cantidad_producto, status)
-    VALUES (1,584.00,1,1),
-    (2,70.00,1,1),
-    (3,24.95,1,1),
-    (4,10.00,1,1),
-    (5,70.00,1,1)
-    """)
+# cursor.execute("""
+#     INSERT INTO carrito (codigo_usuario, precio_total, cantidad_producto, status)
+#     VALUES (1,584.00,1,1),
+#     (2,70.00,1,1),
+#     (3,24.95,1,1),
+#     (4,10.00,1,1),
+#     (5,70.00,1,1)
+#     """)
 
 #Valida datos ingresados a la tabla carrito
 cursor.execute('SELECT * FROM carrito')
@@ -91,15 +91,15 @@ for row in rows:
     print(row)
 
 # Inserta datos a la tabla pedido
-cursor.execute("""
-INSERT INTO pedido(codigo_usuario, codigo_carrito, estado, repartidor, tipo_comprobante, metodo_pago, direccion_envio, area_reparto, tarifa_envio, fecha_entrega, fecha_emision)
-    VALUES (1,1,'pago pendiente','Manuel','boleta','efectivo','Av. Los Patriotas 456','Zona Central>', 12.5, '10/06/2020','07/06/2020'),
-    (2,2,'pagado','Carlos','factura','tarjeta','Av. Universitaria 2456','Zona Central',10, '23/06/2020','26/06/2020'),
-    (3,3,'pago pendiente', 'Martin','boleta','efectivo','Av. Javier Prado Este 2320','Zona Central Sur',8,'30/06/2020','03/07/2020'),
-    (4,4,'pagado','Maria', 'boleta', 'tarjeta','Jr. El Chaco 2520','Zona Norte',15,'02/07/2020','05/07/2020'),
-    (5,5,'pago pendiente','Elisa','factura','efectivo','Av. La Molina 1506', 'Zona Este', 18,'15/06/2020','18/06/2020')
-    """)
-con.commit()
+# cursor.execute("""
+# INSERT INTO pedido(codigo_usuario, codigo_carrito, estado, repartidor, tipo_comprobante, metodo_pago, direccion_envio, area_reparto, tarifa_envio, fecha_entrega, fecha_emision)
+#     VALUES (1,1,'pago pendiente','Manuel','boleta','efectivo','Av. Los Patriotas 456','Zona Central>', 12.5, '10/06/2020','07/06/2020'),
+#     (2,2,'pagado','Carlos','factura','tarjeta','Av. Universitaria 2456','Zona Central',10, '23/06/2020','26/06/2020'),
+#     (3,3,'pago pendiente', 'Martin','boleta','efectivo','Av. Javier Prado Este 2320','Zona Central Sur',8,'30/06/2020','03/07/2020'),
+#     (4,4,'pagado','Maria', 'boleta', 'tarjeta','Jr. El Chaco 2520','Zona Norte',15,'02/07/2020','05/07/2020'),
+#     (5,5,'pago pendiente','Elisa','factura','efectivo','Av. La Molina 1506', 'Zona Este', 18,'15/06/2020','18/06/2020')
+#     """)
+# con.commit()
 
 #Valida datos ingresados a la tabla pedido
 cursor.execute('SELECT * FROM pedido')

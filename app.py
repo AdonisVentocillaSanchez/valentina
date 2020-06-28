@@ -19,6 +19,10 @@ Cpedido      = Pedido()
 Ccarrito     = Carrito()
 Ccategoria   = Categoria()
 
+## BORRAR SESIONES ANTES DE INICIAR APLICACION
+## En un array colocar las sesiones utilizadas y con un bucle for eliminarlos
+
+
 #Primera ruta a ejecutarse en la pagina
 @app.route('/')
 def home():
@@ -68,6 +72,7 @@ def registration():
 def login():
     if request.method == "POST":
         correo_electronico=request.form["email"]
+        ## Traer usuario con el correo
         user = Cusuario.obtener_usuario(correo_electronico = correo_electronico)
 
         if request.form["password"] == user.contrasena:
@@ -233,12 +238,14 @@ def registrarPedido():
 
     userid = session["user_id"]
     carrito_list = Ccarrito.listar_carrito(id_user=userid)
-    carritoid = carrito_list[[0]]
+    carritoid = carrito_list[0]
     if request.method == "POST":
         provincia = request.form["provincia"]
         direccion = request.form["direccion"]
         distrito = request.form["distrito"]
-        ruc = int(request.form["ruc"])
+        ruc = 0
+        if request.form["ruc"]:
+            ruc = int(request.form["ruc"])
         comprobante = request.form["comprobante"]
         tarjeta = request.form["tarjeta"]
         expiracion = request.form["direccion"]

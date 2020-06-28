@@ -189,6 +189,7 @@ class Producto(object):
             print("Error: {}".format(e))
         finally:
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return list
     
     #Busca producto por palabra segun la categoria
     def buscar_producto_categoria(self, palabra:str, id_categoria:int):

@@ -34,6 +34,8 @@ class Carrito(object):
     def cantidad_producto(self):
         return self.__cantidad_producto
     @cantidad_producto.setter
+    
+    
     def cantidad_producto(self, pcantidad_producto):
         self.__cantidad_producto = pcantidad_producto
 
@@ -41,6 +43,7 @@ class Carrito(object):
     def agregar(self, cod_usu:int, precio:int) -> bool:
         estado_op = False
         cod_us = int(cod_usu)
+        ## Verificar si ya existe un carrito activo con el usuario
         creado = self.cartActivo(iduser=cod_us)    #Verificamos si se ha creado
         if creado:
             actualizar = self.cartActualizar(iduser=cod_us, precio=precio)
@@ -74,7 +77,7 @@ class Carrito(object):
             # Primero verificamos si el usuario tiene algun registro con status activo(1) en su carrito
             cursor1 = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
-                SELECT * FROM carrito where codigo_usuario={} AND status=1'''.format(iduser)
+                SELECT * FROM carrito where codigo_usuario={} AND status=1 '''.format(iduser)
             cursor1.execute(query)
             result = cursor1.fetchone()
             if result:
@@ -86,7 +89,7 @@ class Carrito(object):
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
             return status
 
-    #Creación de un carrito
+    # Actualizacion del carrito
     def cartActualizar(self, iduser:int, precio:int) -> bool:
         status = False
         try:
@@ -108,11 +111,12 @@ class Carrito(object):
     
     def listar_carrito(self, id_user:int):
         list = None
+        id_use = int(id_user)
         database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
         try:
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
-                SELECT * FROM carrito where codigo_usuario={} AND status=1 '''.format(id_user)
+                SELECT * FROM carrito where codigo_usuario={} AND status=1 LIMIT 1'''.format(id_use)
             cursor.execute(query)
             list = cursor.fetchone()
             return list
