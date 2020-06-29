@@ -3,6 +3,10 @@
 <!-- Header con logo de Linio -->
 {% include '/layouts/header.html' %}
 
+{% if categoria %}
+  <h1>Categoría: {{categoria[0]}}</h1>
+{% endif %}
+
 <div>
   <form role="form" id="Search", method="post">
       <!--Label para busqueda-->
@@ -10,28 +14,34 @@
       <input id="search" type="text" name="search">
       <button type="submit">Buscar</button>
   </form>
-</div>
-
-{% if error %}
-  <h3 style="color:Tomato;">{{error}}</h3>
+  {% if error %}
+  <h4 style="color:Tomato;">{{error}}</h4>
 {% endif %}
+</div>
 
 {% if message %}
   <h3 style="color:Tomato;">{{message}}</h3>
 {% endif %}
 
+
 <!-- En una lista pondremos los productos disponibles - maximo 5 -->
 {% if product_list %}
+<h2>Productos disponibles:</h2>
   {% for product in product_list %}
-          <div>
-              <p>Nombre del Producto: {{product[3]}}</p>
-              <p>Tienda: {{product[6]}}</p>
-              <p>Precio: {{product[5]}}</p>
-              <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="100"><br>
-              <a href="{{ url_for('product_detail', id_producto = product[0]) }}">Ver producto</a>
-              <a href="{{ url_for('add_cart', id_producto = product[0]) }}">Añadir al carrito</a>
-          </div>
+  <div>
+      <p>Nombre del Producto: {{product[3]}}</p>
+      <p>Tienda: {{product[6]}}</p>
+      <p>Precio: {{product[5]}}</p>
+      <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="100"><br><br>
+      <a href="{{ url_for('product_detail', id_producto = product[0]) }}">Ver producto</a>
+      <a href="{{ url_for('add_cart', id_producto = product[0]) }}">Añadir al carrito</a>
+  </div>
   {% endfor %}
+
+  {% else %}
+  {% if not message %}
+    <h2>Aún no hay productos para esta categoria</h2>
+  {% endif %}
 {% endif %}
 
 

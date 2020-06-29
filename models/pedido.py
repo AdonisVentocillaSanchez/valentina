@@ -102,14 +102,13 @@ class Pedido(object):
     def generar(self, id_cart:int, id_user:int) -> bool:
         estado_op = False
         cartid = id_cart
-        fecha = datetime.date.today()
         try:
             database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
                 INSERT INTO pedido(codigo_usuario, codigo_carrito, estado, repartidor, tipo_comprobante, metodo_pago, direccion_envio, area_reparto, tarifa_envio, fecha_entrega, fecha_emision)
-                        VALUES ({}, {}, '{}', '{}', '{}', '{}','{}','{}',{}, {}, {})
-                        '''.format(cartid, id_cart, self.__estado,self.__repartidor, self.__tipo_comprobante, self.__metodo_pago, self.__direccion_envio,self.__area_reparto, self.__tarifa_envio, fecha, fecha)
+                        VALUES ({}, {}, '{}', '{}', '{}', '{}','{}','{}',{}, '{}', '{}')
+                        '''.format(cartid, id_cart, self.__estado,self.__repartidor, self.__tipo_comprobante, self.__metodo_pago, self.__direccion_envio,self.__area_reparto, self.__tarifa_envio, self.fecha_entrega, self.fecha_emision)
             cursor.execute(query)
             database.commit()  # CONFIRMAR CAMBIOS QUERY
             estado_op = True
@@ -120,3 +119,44 @@ class Pedido(object):
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
 
         return estado_op
+    
+    #Buscar los pedidos de un solo usuario
+    def listarpedido(self, idprod:int):
+        producto = None
+        database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+        try:
+            cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+                SELECT * FROM pedido WHERE codigo_usuario={} '''.format(idprod)
+            cursor.execute(query)
+            producto= cursor.fetchall()
+            return producto
+            database.commit()  # CONFIRMAR CAMBIOS QUERY
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return producto
+    
+    #Funcion para CANCELAR PEDIDO
+    def cancelarpedido(self, id_ped:int) -> bool:
+        estado_op = False
+        database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+        try:
+            cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+                UPDATE pedido SET estado='cancelado'
+                        WHERE codigo_pedido = {}
+                        '''.format(id_ped)
+            cursor.execute(query)
+            database.commit()  # CONFIRMAR CAMBIOS QUERY
+            estado_op = True
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return estado_op
+
+    

@@ -6,7 +6,6 @@
 {% if error %}
   <h3 style="color:Tomato;">{{error}}</h3>
 {% endif %}
-
 <!-- Detalle del producto-->
     <h2>Carrito de Compras</h2>
     {% if product %}
@@ -14,6 +13,7 @@
         <p>Cantidad de productos: {{product[3]}} </p>
         <p>Costo total: {{product[2]}}</p>
         <a href="{{ url_for('registrarPedido') }}">Efectuar compra</a><br>
+        <a href="{{ url_for('delete_cart') }}">Borrar carrito</a><br>
     </div>
     {% else %}
     <div>

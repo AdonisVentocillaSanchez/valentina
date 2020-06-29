@@ -12,8 +12,11 @@
 {% endif %}
 
 
-<!--Formulario de registro -->
-<form role="form" id="registerProduct", method="post">
+{% if message %}
+  <h3 style="color:Tomato;">{{message}}</h3>
+{% else %}
+  <!--Formulario de registro -->
+  <form role="form" id="registerProduct", method="post">
     <!-- Input de nombre -->
     <label for="nombre">Nombre</label><br>
     <input id="nombre" type="text" name="nombre"><br><br>
@@ -33,7 +36,10 @@
     <label for="stock">Stock</label><br>
     <input id="stock" type="text" name="stock"><br><br>
     <button type="submit">Registrar Producto</button>
-</form>
+  </form>
+{% endif %}
+
+
 
 <!-- Footer -->
 {% include '/layouts/footer.html' %}

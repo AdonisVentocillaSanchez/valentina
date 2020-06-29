@@ -23,3 +23,21 @@ class Categoria(object):
     @nombre.setter
     def nombre(self, pnombre):
         self.__nombre = pnombre
+
+    ## Funcion para buscar el nombre de una categoria
+    def buscar(self, id:int) -> str:
+        name = None
+        try:
+            database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+            cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+                SELECT nombre FROM categoria where codigo_categoria={}'''.format(id)
+            cursor.execute(query)
+            name = cursor.fetchone()
+            return name
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return name

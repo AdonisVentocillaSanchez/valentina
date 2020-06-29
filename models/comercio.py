@@ -36,6 +36,13 @@ class Comercio(object):
     @RUC.setter
     def RUC(self, pRUC):
         self.__RUC = pRUC
+    
+    @property
+    def contrasena(self):
+        return self.__contrasena
+    @contrasena.setter
+    def contrasena(self, pcontrasena):
+        self.__contrasena = pcontrasena
 
     @property
     def ListaProducto(self):
@@ -44,14 +51,38 @@ class Comercio(object):
     def ListaProducto(self, pListaProducto):
         self.__ListaProducto = pListaProducto
     
-    def obtener_comercio(self, ruc:str):
+    ## CREAR CUENTA COMERCIO
+    def crear_cuenta(self) -> bool:
+        estado_op = False
+        database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+        try:
+            cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+            INSERT INTO comercio(nombre, direccion, RUC, contrasena)
+            VALUES ('{}', '{}', {}, '{}')
+            '''.format(self.__nombre, self.__direccion, self.__RUC, self.__contrasena)
+
+            cursor.execute(query)
+            database.commit()  # CONFIRMAR CAMBIOS QUERY
+
+            estado_op = True
+
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+
+        return estado_op
+
+    def obtener_comercio(self, ruc:str) :
         comercio=None
         try:
             database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
                 SELECT *
-                FROM Comercio WHERE RUC= '{}'
+                FROM Comercio WHERE RUC= {}
                 '''.format(ruc)
 
             cursor.execute(query)
@@ -64,11 +95,12 @@ class Comercio(object):
                 RUC=comercio[3],
                 contrasena=comercio[4]
             )
-
             return comercioObj
 
         except Exception as e:
             print("Error: {}".format(e))
         finally:
-                database.close()
-        return comercio
+            database.close()
+            return comercio
+
+    

@@ -8,16 +8,19 @@
 {% endif %}
 
 <!-- Detalle del producto-->
-
-    <div>
-        <p>Nombre del Producto: {{product[3]}} </p>
-        <p>Tienda: {{product[6]}}</p>
-        <p>Precio: {{product[5]}}</p>
-        <p>Descripción: {{product[4]}}</p>
-        <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="100"><br>
-        <a href="{{ url_for('product_detail', id_producto = product[0]) }}">Ver producto</a>
-        <a href="{{ url_for('add_cart', id_producto = product[0]) }}">Añadir al carrito</a>
-    </div>
+{% if product %}
+  <div>
+    <h2>Detalles del Producto: </h2>
+      <p>Nombre del Producto: {{product[3]}} </p>
+      <p>Tienda: {{product[6]}}</p>
+      <p>Precio: {{product[5]}}</p>
+      <p>Descripción: {{product[4]}}</p>
+      <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="100"><br>
+      <a href="{{ url_for('add_cart', id_producto = product[0]) }}">Añadir al carrito</a>
+  </div>
+  {% else %}
+  <h2>Producto no disponible</h2>
+{% endif %}
     
 
 

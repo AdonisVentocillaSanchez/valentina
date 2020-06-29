@@ -6,10 +6,6 @@
 <!-- Título de la página -->
 <h1>Completar pedido</h1>
 
-<!-- Mensaje de error -->
-{% if error %}
-  <h3 style="color:Tomato;">{{error}}</h3>
-{% endif %}
 
 <!-- Detalle del producto-->
 <h2>Carrito de Compras</h2>
@@ -17,48 +13,79 @@
 <div>
     <p>Cantidad de productos: {{product[3]}} </p>
     <p>Costo total: {{product[2]}}</p>
-    <!-- <a href="{{ url_for('product_detail', id_producto = product[0]) }}">Ver producto</a> -->
 </div>
-{% else %}
+
+{% endif %}
+
+{% if not (product or message) %}
+<!--Solo se mostrara el mensaje cuando no tenga un carrito o algún mensaje-->
 <div>
     <p>Aún no tienes productos en tu carrito</p>
 </div>
 {% endif %}
 
+<!-- Mensaje de error -->
+{% if error %}
+  <h3 style="color:Tomato;">{{error}}</h3>
+{% endif %}
+
+
 {% if message %}
 <h3 style="color:Tomato;">{{message}}</h3>
 {% else %}
+
 <!--Formulario de registro -->
 <form role="form" id="registerPedido", method="post">
+    <h2>INFORMACIÓN DE MEDIO DE PAGO</h2>
+    <!-- Input de Método de pago -->
+    <label for="metodo">Método de Pago</label><br>
+    <select id="metodo"name="metodo">
+        <option value="tarjeta">Tarjeta</option>
+        <option value="efectivo">Efectivo</option>
+    </select>
+    <p>Si seleccionas <strong>Tarjeta</strong> debes completar los siguientes datos</p>
     <!-- Input de ntarjeta -->
     <label for="tarjeta">Numero de tarjeta</label><br>
-    <input id="tarjeta" type="text" name="tarjeta"><br><br>
+    <input id="tarjeta" type="number" name="tarjeta"><br><br>
     <!-- Input de expiracion -->
     <label for="expiracion">Fecha de expiracion</label><br>
     <input id="expiracion" type="date" name="expiracion"><br><br>
     <!-- Input de CVV -->
     <label for="cvv">CVV</label><br>
-    <input id="cvv" type="text" name="cvv"><br><br>
+    <input id="cvv" type="number" name="cvv"><br><br>
+    
+    <h2>INFORMACIÓN DE ENVÍO</h2>
+    <ul>
+        <li>Costo de envío:</li>
+        <li>Lima: S/.10.00</li>
+        <li>Provincia: S/.15.00</li>
+    </ul><br>
     <!-- Input de provincia -->
     <label for="provincia">Provincia</label><br>
-    <input id="provincia" type="text" name="provincia"><br><br>
+    <input id="provincia" type="text" name="provincia" value="Lima"><br><br>
     <!-- Input de distrito -->
     <label for="distrito">Distrito</label><br>
     <input id="distrito" type="text" name="distrito" value="Lima"><br><br>
     <!-- Input de direccion -->
     <label for="direccion">Direccón de envío</label><br>
     <input id="direccion" type="text" name="direccion"><br><br>
-    <!-- Input de RUC -->
-    <label for="ruc">RUC (*) solo si desea factura</label><br>
-    <input id="ruc" type="text" name="ruc"><br><br>
+
+    <h2>INFORMACIÓN DE TIPO DE COMPROBANTE</h2>
     <!-- Input de Tipo de comprobante -->
     <label for="comprobante">Tipo de comprobante</label><br>
     <select id="comprobante"name="comprobante">
         <option value="boleta">Boleta</option>
         <option value="factura">Factura</option>
     </select><br><br>
+    <!-- Input de RUC -->
+    <label for="ruc">RUC (*) solo si desea factura</label><br>
+    <input id="ruc" type="text" name="ruc"><br><br>
     <button type="submit">Completar pedido</button>
 </form>
 {% endif %}
 
+
+
+<!-- Footer -->
+{% include '/layouts/footer.html' %}
 {% endblock %}

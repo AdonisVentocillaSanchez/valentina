@@ -1,0 +1,35 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+<!-- Header con logo de Linio -->
+{% include '/layouts/header.html' %}
+
+<h2>Historial de compras</h2>
+
+{% if message %}
+  <h3 style="color:Tomato;">{{message}}</h3>
+{% endif %}
+
+{% if compra_list %}
+
+  {% for compra in compra_list %}
+  <div>
+    <ul>
+        <li>Codigo de compra: {{compra[0]}}</li>
+        <li>Tipo de comprobante: {{compra[5]}}</li>
+        <li>Estado de compra: {{compra[3]}}</li>
+        <li>Medio de pago: {{compra[6]}}</li>
+        <li>Dirección de envío: {{compra[7]}}</li>
+        <li>Precio: {{compra[9]}}</li>
+        <li>Fecha de compra: {{compra[11]}}</li>
+        <a href="{{ url_for('cancelar_pedido', id_ped=compra[0]) }}">Cancelar pedido</a>
+    </ul>
+  </div>
+  
+  {% endfor %}
+
+{% endif %}
+
+
+<!-- Footer -->
+{% include '/layouts/footer.html' %}
+{% endblock %}
