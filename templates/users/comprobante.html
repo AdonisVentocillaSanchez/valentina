@@ -27,6 +27,8 @@
       <li>Tarifa de envío: S/.{{datos_list[9]}}</li>
       <li>Precio total: S/.{{datos_list[8] + datos_list[9]}}</li>
       <li>Fecha que se proceso la compra: {{datos_list[10]}}</li>
+      <li>Dirección de Comercio: {{datos_list[11]}}</li>
+      <li>RUC de Comercio: {{datos_list[12]}}</li>
     </ul>
     {% else %}
     <h2>BOLETA DE COMPRA</h2>
@@ -38,11 +40,13 @@
       <li>Tarifa de envío: S/.{{datos_list[9]}}</li>
       <li>Precio total: S/.{{datos_list[8] + datos_list[9]}}</li>
       <li>Fecha que se proceso la compra: {{datos_list[10]}}</li>
+      <li>Dirección de Comercio: {{datos_list[11]}}</li>
     </ul>
     {% endif %}
   {% else %}
-    <h2>Su comprobante se emitirá cuando pague al momento de recibir su producto</h2>
-    <h3>Resumen</h3>
+    {% if datos_list[1]=="factura" %}
+    <h2>La factura se emitirá cuando pague al momento de recibir su producto</h2>
+    <h3>Resumen de pedido</h3>
     <ul>
       <li>Estado de pago: {{datos_list[0]}}</li>
       <li>Datos del comprador: {{datos_list[2]}} {{datos_list[3]}} {{datos_list[4]}}</li>
@@ -53,7 +57,25 @@
       <li>Fecha que se proceso la compra: {{datos_list[10]}}</li>
       <li>Precio total: S/.{{datos_list[8] + datos_list[9]}}</li>
       <li>Tipo de comprobante: {{datos_list[1]}}</li>
+      <li>Dirección de Comercio: {{datos_list[11]}}</li>
+      <li>RUC de Comercio: {{datos_list[12]}}</li>
     </ul>
+    {% else %}
+    <h2>La comprobante se emitirá cuando pague al momento de recibir su producto</h2>
+    <h3>Resumen de pedido</h3>
+    <ul>
+      <li>Estado de pago: {{datos_list[0]}}</li>
+      <li>Datos del comprador: {{datos_list[2]}} {{datos_list[3]}} {{datos_list[4]}}</li>
+      <li>Dirección de envío: {{datos_list[5]}}</li>
+      <li>Cantidad de productos comprados: {{datos_list[7]}}</li>
+      <li>Precio de los productos: S/.{{datos_list[8]}}</li>
+      <li>Tarifa de envío: S/.{{datos_list[9]}}</li>
+      <li>Fecha que se proceso la compra: {{datos_list[10]}}</li>
+      <li>Precio total: S/.{{datos_list[8] + datos_list[9]}}</li>
+      <li>Tipo de comprobante: {{datos_list[1]}}</li>
+      <li>Dirección de Comercio: {{datos_list[11]}}</li>
+    </ul>
+    {% endif %}
   {% endif %}
 </div>
 {% endif %}

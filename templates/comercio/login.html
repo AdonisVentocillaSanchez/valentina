@@ -4,22 +4,37 @@
 {% include '/layouts/header.html' %}
 
 <!-- Título de la página -->
-<h1>Inicia sesión en Linio Express</h1>
+<h1>Inicia sesión con tu Comercio en Linio Express</h1>
 
 {% if error %}
   <h3 style="color:Tomato;">{{error}}</h3>
 {% endif %}
 
 <!--Formulario de registro -->
-<form role="form" id="LoginForm" method="post">
-    <!-- Input de RUC -->
-    <label for="ruc">RUC</label><br>
-    <input id="ruc" type="text" name="ruc"><br><br>
+<div class="row">
+  <form role="form" id="LoginForm" method="post" class="col s6">
+    <!-- Input de correo electrónico -->
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="ruc" type="text" name="ruc" class="validate" minlength="11" maxlength="11" required>
+        <label for="ruc">RUC</label>
+      </div>
+    </div>
     <!-- Input de contraseña -->
-    <label for="password">Contraseña</label><br>
-    <input id="password" type="password" name="password" ><br><br>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" name="password" class="validate" required>
+        <label for="password">Contraseña</label>
+      </div>
+    </div>
     <!-- Botón para enviar datos del formualario -->
-    <button type="submit">Iniciar Sesión</button>
-</form>
+    <button class="btn waves-effect waves-light orange" type="submit">Iniciar Sesión
+      <i class="material-icons right">chevron_right</i>
+    </button>
+  </form>
+</div>
+
+<!-- Footer -->
+{% include '/layouts/footer.html' %}
 
 {% endblock %}

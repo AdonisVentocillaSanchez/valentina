@@ -5,12 +5,12 @@ cursor = con.cursor()
 
 # Inserta datos a la tabla usuario
 cursor.execute("""
-INSERT INTO usuario(primer_nombre, primer_apellido, segundo_apellido, edad, correo_electronico, telefono, nro_tarjeta_bancaria, nombre_usuario, contrasena)
-    VALUES ('Berenice','Espinoza','Luna',20,'bere@gmail.com',982528765,'4551-0382-6988-3142','berenicedaiana', 'espinozaluna'),
-    ('Karina','Blas','Fernandez',21,'kari@gmail.com',995295729,'4280-8200-9076-8206','karina','blasfernandez'),
-    ('Valentina','Yangali','Torres',21,'valentina@gmail.com',943061178,'4219-1801-2039-5181','valentina','yangalitorres'),
-    ('Sheila','Vera','Falcon',21,'sheila@gmail.com',940247734,'4474-3700-1030-3276','sheila','verafalcon'),
-    ('Blanca','Chavez','Alvarado', 21, 'blanca@gmail.com',993463816,'4484-6424-2040-5383','blancaalexandra','chavezalvarado')
+INSERT INTO usuario(primer_nombre, primer_apellido, segundo_apellido, edad, correo_electronico, telefono, contrasena)
+    VALUES ('Berenice','Espinoza','Luna',20,'bere@gmail.com',982528765, 'espinozaluna'),
+    ('Karina','Blas','Fernandez',21,'kari@gmail.com',995295729, 'blasfernandez'),
+    ('Valentina','Yangali','Torres',21,'valentina@gmail.com',943061178, 'yangalitorres'),
+    ('Sheila','Vera','Falcon',21,'sheila@gmail.com',940247734, 'verafalcon'),
+    ('Blanca','Chavez','Alvarado', 21, 'blanca@gmail.com',993463816, 'chavezalvarado')
     """)
 con.commit()
 

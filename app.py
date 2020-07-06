@@ -25,7 +25,27 @@ Ccategoria   = Categoria()
 #Primera ruta a ejecutarse en la pagina
 @app.route('/')
 def home():
-    return render_template('home.html')
+    categoriaList = Ccategoria.listar()
+    return render_template('home.html', categoriaList = categoriaList)
+
+### RUTAS DEL FOOTER
+@app.route('/ayuda')
+def ayuda():
+    return render_template('info/ayuda.html')
+
+@app.route('/historia')
+def historia():
+    return render_template('info/historia.html')
+
+@app.route('/legales')
+def legales():
+    return render_template('info/legales.html')
+
+@app.route('/terminos-y-condiciones')
+def termycond():
+    return render_template('info/termycond.html')
+
+### RUTAS DEL FOOTER
 
 #Ruta de registro de usuarios
 @app.route('/registro', methods=["get","post"])
@@ -37,8 +57,6 @@ def registration():
         useredad = request.form["edad"]
         usercorreoelectronico = request.form["correo_electronico"]
         usertelefono = request.form["telefono"]
-        usernrotarjetabancaria = request.form["nro_tarjeta_bancaria"]
-        usernombreusuario = request.form["nombre_usuario"]
         usercontrasena = request.form["contrasena"]
 
         usertelefono = int(usertelefono)
@@ -51,8 +69,6 @@ def registration():
             edad=useredad,
             correo_electronico=usercorreoelectronico,
             telefono=usertelefono,
-            nro_tarjeta_bancaria= usernrotarjetabancaria,
-            nombre_usuario=usernombreusuario,
             contrasena=usercontrasena
         )
 
@@ -61,7 +77,7 @@ def registration():
         if estado_op:
             return redirect("inicio-sesion")
         else:
-            error = 'Invalid email'
+            error = 'No se a podido registrar tu cuenta'
             return render_template('users/register.html', error=error)
     return render_template('users/register.html')
 
@@ -179,6 +195,7 @@ def logout():
 @app.route('/registroProducto', methods=["get","post"])
 @comercio_required
 def registrarProducto():
+    categoriaList = Ccategoria.listar()
     if request.method == "POST":
         nombre = request.form["nombre"]
         categoria = int(request.form["categoria"])
@@ -199,12 +216,12 @@ def registrarProducto():
 
         if produc:
             error = 'PRODUCTO REGISTRADO'
-            return render_template('users/registerProduct.html', error=error)
+            return render_template('users/registerProduct.html', error=error, categoriaList = categoriaList)
         else:
             error = 'Verifique los datos'
-            return render_template('users/registerProduct.html', error=error)
+            return render_template('users/registerProduct.html', error=error, categoriaList = categoriaList)
 
-    return render_template('users/registerProduct.html')
+    return render_template('users/registerProduct.html', categoriaList = categoriaList)
 
 #Ruta para listar todos los productos
 @app.route('/productos')
@@ -292,12 +309,14 @@ def delete_cart():
 @login_required
 def registrarPedido():
     carritoid = None
+    precio_prod = 0
     userid = session["user_id"]
     useremail = session["user_email"]
     carrito_list = Ccarrito.listar_carrito(id_user=userid)
     user = Cusuario.obtener_usuario(correo_electronico = useremail)
     if carrito_list:
         carritoid = carrito_list[0]
+        precio_prod = int(carrito_list[2])
     
     ## Capturamos la fecha 
     now1 = dt.now()
@@ -312,7 +331,8 @@ def registrarPedido():
         if metodo=="tarjeta" and not(tarjeta and expiracion and cvv):
             message = 'Verifica los datos de tu tarjeta'
             return render_template('users/registerPedido.html', message=message)
-        else:
+        
+        if metodo=="efectivo":
             estado = "pago pendiente"
             tarjeta = 0
         
@@ -330,16 +350,13 @@ def registrarPedido():
         ruc = 0
         if request.form["ruc"]:
             ruc = int(request.form["ruc"])
-
-        if not(comprobante=="factura" and len(str(ruc))==11):
-            message = 'Verifica tu número RUC'
-            return render_template('users/registerPedido.html', message=message)
     
         repartidor = "Motorizado 1"
         tarifa = 10
-        if distrito!="Lima":
+        if (distrito!="Lima") and (provincia!="Lima"):
             tarifa = 15
-
+        
+        totalp = int(tarifa + precio_prod)
         Pedid = Pedido(
             estado=estado,
             repartidor=repartidor,
@@ -347,12 +364,14 @@ def registrarPedido():
             metodo_pago=metodo,
             direccion_envio=dir_envio,
             area_reparto=distrito,
-            tarifa_envio=tarifa + int(carrito_list[2]),
+            tarifa_envio=totalp,
             fecha_emision=fecha,
             fecha_entrega=fecha
         )
 
         result = Pedid.generar(id_user=userid, id_cart=carritoid)
+        liniodir = "Calle Las Begonias 345 - San Isidro"
+        linioruc = "10101957387"
         datos_list =[
             estado,                 ## Estado de la compra
             comprobante,            ## Tipo de comprobante
@@ -364,7 +383,9 @@ def registrarPedido():
             carrito_list[3],        ## Cantidad de productos comprados 
             carrito_list[2],        ## Monto del carrito
             tarifa,                 ## Tarifa de envío
-            fecha                   ## Fecha que se realizó la compra
+            fecha,                  ## Fecha que se realizó la compra
+            liniodir,               ## Direccion de Linio
+            linioruc                ## RUC de Linio
             ]
         if result:
             Ccarrito.cambiar_estado_carrito(id_user= carritoid)

@@ -1,28 +1,30 @@
 <!-- El footer es la sección que va al final de la página -->
-<footer>
-    <!-- Añadir botón para volver a la página anterior desde cualquier parte -->
-    <br>
-    <button onclick="back()">Volver a la página anterior</button>
-	<script type="text/javascript">
-	  function back(){
-	    history.back();
-	  }
-	</script>
-    <!-- En el footer pondremos información adicional sobre el negocio -->
-    <h3>Acerca de linio</h3>
-    <ul>
-        <!-- Usaremos la propiedad target="_blank" para que el enlace abra en otra pestaña -->
-        <a href="#" target="_blank">
-            <li>Historia</li>
-        </a>
-        <a href="#" target="_blank">
-            <li>Ayuda</li>
-        </a>
-        <a href="#" target="_blank">
-            <li>Términos y condiciones</li>
-        </a>
-        <a href="#" target="_blank">
-            <li>Legales</li>
-        </a>
-    </ul>
-</footer>
+
+<footer class="page-footer orange accent-4 ">
+    <div class="container">
+      <div class="row">
+          <!--Boton para volver a la página anterior-->
+        <a onclick="volver()" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">arrow_back</i></a>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Acerca de linio</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="{{ url_for('historia') }}">Historia</a></li>
+            <li><a class="grey-text text-lighten-3" href="{{ url_for('ayuda') }}">Ayuda</a></li>
+            <li><a class="grey-text text-lighten-3" href="{{ url_for('termycond') }}">Términos y condiciones</a></li>
+            <li><a class="grey-text text-lighten-3" href="{{ url_for('legales') }}">Legales</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      © 2020 Copyright Linio
+      </div>
+    </div>
+    <script type="text/javascript">
+        function volver(){
+            history.back();
+        }
+    </script>
+    
+  </footer>

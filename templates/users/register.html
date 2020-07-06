@@ -13,38 +13,63 @@
 
 
 <!--Formulario de registro -->
-<form role="form" id="SignUpForm", method="post">
-    <!-- Input de nombre -->
-    <label for="primer_nombre">Primer Nombre</label><br>
-    <input id="primer_nombre" type="primer_nombre" name="primer_nombre" required><br><br>
-    <!-- Input de primer apellido -->
-    <label for="primer_apellido">Primer Apellido</label><br>
-    <input id="primer_apellido" type="primer_apellido" name="primer_apellido" required><br><br>
-    <!-- Input de segundo apellido -->
-    <label for="segundo_apellido">Segundo Apellido</label><br>
-    <input id="segundo_apellido" type="segundo_apellido" name="segundo_apellido" required><br><br>
-    <!-- Input de edad -->
-    <label for="edad">Edad</label><br>
-    <input id="edad" type="edad" name="edad" required><br><br>
-    <!-- Input de correo electronico -->
-    <label for="correo_electronico">Correo electrónico</label><br>
-    <input id="correo_electronico" type="correo_electronico" name="correo_electronico" required><br><br>
-    <!-- Input de Telefono -->
-    <label for="telefono">Teléfono</label><br>
-    <input id="telefono" type="telefono" name="telefono" required><br><br>
-    <!-- Input de Nro Tarjeta Bancaria -->
-    <label for="nro_tarjeta_bancaria">Nro Tarjeta Bancaria</label><br>
-    <input id="nro_tarjeta_bancaria" type="nro_tarjeta_bancaria" name="nro_tarjeta_bancaria" required><br><br>
-    <!-- Input de nombre usuario -->
-    <label for="nombre_usuario">Nombre de usuario</label><br>
-    <input id="nombre_usuario" type="nombre_usuario" name="nombre_usuario" required><br><br>
-    <!-- Input de contraseña -->
-    <label for="contrasena">Contraseña</label><br>
-    <input id="contrasena" type="password" name="contrasena" required><br><br>
-    <!-- Botón para enviar datos del formualario -->
-    <button type="submit">Registrarse</button>
-</form>
 
+<div class="row">
+  <form role="form" id="SignUpForm" method="post" class="col s6">
+    <div class="row">
+      <!-- Input de primer apellido -->
+      <div class="input-field col s6">
+        <input id="primer_apellido" type="text" name="primer_apellido" class="validate" required>
+        <label for="primer_apellido">Primer Apellido</label>
+      </div>
+      <!-- Input de segundo apellido -->
+      <div class="input-field col s6">
+        <input id="segundo_apellido" type="text" name="segundo_apellido" class="validate" required>
+        <label for="segundo_apellido">Segundo Apellido</label>
+      </div>
+    </div>
+    <!-- Input de nombre -->
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="primer_nombre" type="text" name="primer_nombre" class="validate" required>
+        <label for="primer_nombre">Primer Nombre</label>
+      </div>
+    </div>
+    <!-- Input de edad -->
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="edad" type="number" min="18" max="90" name="edad" class="validate" required>
+        <label for="edad">Edad</label>
+      </div>
+    </div>
+    <!-- Input de correo electronico -->
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="correo_electronico" type="email" name="correo_electronico" class="validate" required>
+        <label for="correo_electronico">Correo electrónico</label>
+      </div>
+    </div>
+    <!-- Input de Telefono -->
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="telefono" type="tel" name="telefono" class="validate" required>
+        <label for="telefono">Teléfono</label>
+      </div>
+    </div>
+    <!-- Input de contraseña -->
+    <div class="row">
+      <!-- Input de contraseña -->
+      <div class="input-field col s12">
+        <input id="contrasena" type="password" name="contrasena" class="validate" required>
+        <label for="contrasena">Contraseña</label>
+      </div>
+    </div>
+    <!-- Botón para enviar datos del formulario -->
+    <button class="btn waves-effect waves-light orange" type="submit">Iniciar Sesión
+      <i class="material-icons right">chevron_right</i>
+    </button>
+  </form>
+</div>
 
 <!-- Enlace a Inicio de sesión en caso el usuario ya tenga cuenta -->
 <h3>¿Ya tienes una cuenta en Linio?</h3>

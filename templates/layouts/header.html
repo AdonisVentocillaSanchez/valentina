@@ -1,36 +1,29 @@
 <!-- El header va en la parte superior de nuestra página. Incluiremos el logo de linio -->
 <header>
-    <!-- Usaremos h1 para ponerle un título a nuestra página web -->
-    <h1>Linio Express</h1>
-
-    <!-- Al hacerle click al logo de linio se regresa a la página de inicio -->
-    <a href="{{ url_for('home') }}">
-        <img src="https://linio-express.s3-sa-east-1.amazonaws.com/logos/Linio_logo.svg" height="100">
-    </a><br><br>
     <!--Menu logueo usuario-->
-    {% if session['type'] == 1%}
-
-    <h2>¡Hola {{ session['user_name'] or '' }}!</h2>
-    <a href="{{ url_for('logout') }}">Cerrar sesión</a><br>
-    <a href="{{ url_for('view_cart') }}">Ver mi carrito</a><br>
-    <a href="{{ url_for('listar_pedido') }}">Ver mi historial de compra</a><br>
-    <h2>Tenemos los mejores productos en todas las categorías para tí</h2>
-
-    <!--Menu logueo Comercio-->
-    {% elif session['type'] == 2 %}
-
-    <h2> RUC : {{session['user_name']}}</h2>
-    <a href="{{ url_for('logout') }}">Cerrar sesión</a><br>
-    <a href="{{ url_for('registrarProducto') }}">Añadir un producto</a>
-
-    {% else %}
-
-    <!-- Ponemos un enlace para que el usuario ingrese a su cuenta y otro para el registro -->
-    <a href="{{ url_for('login') }}">Iniciar sesión</a> <br>
-    <a href="{{ url_for('loginComercio') }}">Iniciar sesión como Comercio</a>
-    <br>
-    <a href="{{ url_for('registration') }}">Registrarse</a> <br>
-    <a href="{{ url_for('registrationC') }}">Registrarse como Comercio</a>
-
-    {% endif %}
+    <nav>
+        <div class="nav-wrapper grey">
+            <a href="{{ url_for('home') }}" class="brand-logo"><img class="responsive-img" src="https://linio-express.s3-sa-east-1.amazonaws.com/logos/Linio_logo.svg"></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if session['type'] == 1%}
+                <!--Menu logueo Usuario-->
+                <li style="color: black;">¡Hola {{ session['user_name'] or '' }}!</li>
+                <li><a href="{{ url_for('listar_pedido') }}">Ver mi historial de compra</a></li>
+                <li><a href="{{ url_for('view_cart') }}">Ver mi carrito</a></li>
+                <li><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+            {% elif session['type'] == 2 %}  
+                <!--Menu logueo Comercio-->
+                <li style="color: black;">RUC : {{session['user_name']}}</li>
+                <li><a href="{{ url_for('registrarProducto') }}">Añadir un producto</a></li>
+                <li><a href="{{ url_for('logout') }}">Cerrar sesión</a></li>
+            {% else %}
+            <!-- Ponemos un enlace para que el usuario ingrese a su cuenta y otro para el registro -->
+                <li><a href="{{ url_for('login') }}">Login Usuario</a></li>
+                <li><a href="{{ url_for('registration') }}">Registrarme</a></li>
+                <li><a href="{{ url_for('loginComercio') }}">Login Comercio</a></li>
+                <li><a href="{{ url_for('registrationC') }}">Registrar mi Comercio</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
 </header>

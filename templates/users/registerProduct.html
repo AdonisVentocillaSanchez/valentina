@@ -21,20 +21,25 @@
     <label for="nombre">Nombre</label><br>
     <input id="nombre" type="text" name="nombre"><br><br>
     <!-- Input de Categoria -->
-    <label for="categoria">Código de Categoría(1..8)</label><br>
-    <input id="categoria" type="number" name="categoria"><br><br>
+    <label for="categoria">Seleccione la Categoría</label>
+    <select id="categoria"name="categoria" class="browser-default" required>
+        <option value="" disabled selected>Seleccione una opción</option>
+        {% for categoria in categoriaList %}
+          <option value="{{ categoria[0] }}" > {{ categoria[1] }} </option>
+        {% endfor %}
+    </select><br>
     <!-- Input de descripcion -->
     <label for="descripcion">Descripción</label><br>
     <input id="descripcion" type="text" name="descripcion"><br><br>
     <!-- Input de precio -->
     <label for="precio">Precio</label><br>
-    <input id="precio" type="text" name="precio"><br><br>
+    <input id="precio" type="number" name="precio" min="0"><br><br>
     <!-- Input de Tienda -->
     <label for="tienda">Tienda</label><br>
     <input id="tienda" type="text" name="tienda"><br><br>
     <!-- Input de Stock -->
     <label for="stock">Stock</label><br>
-    <input id="stock" type="text" name="stock"><br><br>
+    <input id="stock" type="number" name="stock" min="0"><br><br>
     <button type="submit">Registrar Producto</button>
   </form>
 {% endif %}

@@ -41,3 +41,21 @@ class Categoria(object):
         finally:
             database.close()  # CERRAR CONEXION CON BASE DE DATOS
             return name
+
+    ## Funcion para buscar el nombre de una categoria
+    def listar(self) :
+        name = None
+        try:
+            database = sqlite3.connect("data/Proyecto_Linio.db")  # ABRIR CONEXION CON BASE DE DATOS
+            cursor = database.cursor()  # OBTENER OBJETO CURSOR
+            query = '''
+                SELECT * FROM categoria'''
+            cursor.execute(query)
+            name = cursor.fetchall()
+            return name
+        except Exception as e:
+            database.rollback()  # RESTAURAR ANTES DE CAMBIOS POR ERROR
+            print("Error: {}".format(e))
+        finally:
+            database.close()  # CERRAR CONEXION CON BASE DE DATOS
+            return name

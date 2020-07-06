@@ -1,0 +1,21 @@
+{% extends "/layouts/application.html" %}
+{% block content %}
+
+<!-- Header con logo de Linio -->
+{% include '/layouts/header.html' %}
+
+
+  <h2>T&eacute;rminos y Condiciones</h2>
+  <div>
+      <p>
+        El Usuario debe leer, entender y aceptar todas las condiciones establecidas en los Términos y Condiciones Generales y en las Políticas de Privacidad de LINIO PERÚ S.A.C.
+        así como en los demás documentos incorporados a los mismos por referencia, previo a su registro como Usuario de <a href="{{ url_for('home') }}">linio.com.pe</a> y/o a la adquisición de productos 
+        y/o entrega de cualquier dato, quedando sujetos a lo señalado y dispuesto en los Términos y Condiciones. 
+      </p>
+  </div>
+  
+
+
+<!-- Footer -->
+{% include '/layouts/footer.html' %}
+{% endblock %}

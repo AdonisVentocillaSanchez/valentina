@@ -108,7 +108,7 @@ class Pedido(object):
             query = '''
                 INSERT INTO pedido(codigo_usuario, codigo_carrito, estado, repartidor, tipo_comprobante, metodo_pago, direccion_envio, area_reparto, tarifa_envio, fecha_entrega, fecha_emision)
                         VALUES ({}, {}, '{}', '{}', '{}', '{}','{}','{}',{}, '{}', '{}')
-                        '''.format(cartid, id_cart, self.__estado,self.__repartidor, self.__tipo_comprobante, self.__metodo_pago, self.__direccion_envio,self.__area_reparto, self.__tarifa_envio, self.fecha_entrega, self.fecha_emision)
+                        '''.format(id_user, cartid, self.__estado,self.__repartidor, self.__tipo_comprobante, self.__metodo_pago, self.__direccion_envio,self.__area_reparto, self.__tarifa_envio, self.fecha_entrega, self.fecha_emision)
             cursor.execute(query)
             database.commit()  # CONFIRMAR CAMBIOS QUERY
             estado_op = True

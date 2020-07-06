@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS usuario (
     edad INTEGER,
     correo_electronico TEXT NOT NULL,
     telefono INTEGER,
-    nro_tarjeta_bancaria TEXT,
-    nombre_usuario TEXT NOT NULL,
     contrasena TEXT NOT NULL)
     """)
 con.commit()

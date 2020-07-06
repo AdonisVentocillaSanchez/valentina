@@ -7,19 +7,15 @@
 <!-- Ponemos una ilustración y especificamos el ancho de la imagen con width -->
 <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="500">
 
-<!-- En una lista pondremos las categorías disponibles -->
-
   <h3>Categorías</h3>
     <ul>
-      <li> <a href="{{ url_for('product_category',id_categoria=1) }}">Arte y artesanías</a></li>
-      <li> <a href="{{ url_for('product_category',id_categoria=2) }}">Computadoras</a></li>
-      <li> <a href="{{ url_for('product_category',id_categoria=3) }}">Moda</a></li>
-      <li> <a href="{{ url_for('product_category',id_categoria=4) }}">Belleza y cuidado personal</a></li>
-      <li> <a href="{{ url_for('product_category',id_categoria=5) }}">Salud y bienestar</a></li>
-      <li> <a href="{{ url_for('product_category',id_categoria=6) }}">Deportes</a></li>
-      <li> <a href="{{ url_for('product_category',id_categoria=7) }}">Juguetes</a></li>
-      <li> <a href="{{ url_for('product_category',id_categoria=8) }}">Electrodomésticos</a></li>
+      {% for categoria in categoriaList %}
+      <li>
+          <a href="{{ url_for('product_category',id_categoria = categoria[0]) }}">{{categoria[1]}}</a>
+      </li>
+    {% endfor %}
     </ul>
+    
 
 <!-- Footer -->
 {% include '/layouts/footer.html' %}

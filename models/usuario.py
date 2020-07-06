@@ -4,8 +4,7 @@ class Usuario(object):
 
     def __init__(self, codigo_usuario:int=None, primer_nombre:str=None, primer_apellido:str=None,
                  segundo_apellido:str=None, edad:int=None, correo_electronico:str=None,
-                 telefono:int=None, nro_tarjeta_bancaria:int=None, nombre_usuario:str=None,
-                 contrasena:str=None):
+                 telefono:int=None, contrasena:str=None):
         self.codigo_usuario = codigo_usuario
         self.primer_nombre = primer_nombre
         self.primer_apellido = primer_apellido
@@ -13,8 +12,6 @@ class Usuario(object):
         self.edad = edad
         self.correo_electronico = correo_electronico
         self.telefono = telefono
-        self.nro_tarjeta_bancaria = nro_tarjeta_bancaria
-        self.nombre_usuario = nombre_usuario
         self.contrasena = contrasena
 
     @property
@@ -49,14 +46,6 @@ class Usuario(object):
     def telefono(self) -> int:
         return self.__telefono
 
-    @property
-    def nro_tarjeta_bancaria(self) -> str:
-        return self.__nro_tarjeta_bancaria
-
-    @property
-    def nombre_usuario(self) -> str:
-        return self.__nombre_usuario
-
     @codigo_usuario.setter
     def codigo_usuario(self, pcodigo_usuario):
         self.__codigo_usuario = pcodigo_usuario
@@ -85,14 +74,6 @@ class Usuario(object):
     def telefono(self, ptelefono):
         self.__telefono = ptelefono
 
-    @nro_tarjeta_bancaria.setter
-    def nro_tarjeta_bancaria(self, pnro_tarjeta_bancaria):
-        self.__nro_tarjeta_bancaria = pnro_tarjeta_bancaria
-
-    @nombre_usuario.setter
-    def nombre_usuario(self, pnombre_usuario):
-        self.__nombre_usuario = pnombre_usuario
-
     @contrasena.setter
     def contrasena(self, pcontrasena):
         self.__contrasena = pcontrasena
@@ -104,9 +85,9 @@ class Usuario(object):
 
             cursor = database.cursor()  # OBTENER OBJETO CURSOR
             query = '''
-            INSERT INTO Usuario(primer_nombre, primer_apellido, segundo_apellido, edad, correo_electronico, telefono, nro_tarjeta_bancaria, nombre_usuario, contrasena)
-            VALUES ('{}', '{}', '{}', '{}', '{}','{}', '{}', '{}', '{}')
-            '''.format(self.__primer_nombre, self.__primer_apellido, self.__segundo_apellido, self.__edad, self.__correo_electronico, self.__telefono, self.__nro_tarjeta_bancaria, self.__nombre_usuario, self.__contrasena)
+            INSERT INTO Usuario(primer_nombre, primer_apellido, segundo_apellido, edad, correo_electronico, telefono, contrasena)
+            VALUES ('{}', '{}', '{}', '{}', '{}','{}', '{}')
+            '''.format(self.__primer_nombre, self.__primer_apellido, self.__segundo_apellido, self.__edad, self.__correo_electronico, self.__telefono, self.__contrasena)
 
             cursor.execute(query)
             database.commit()  # CONFIRMAR CAMBIOS QUERY
@@ -141,9 +122,7 @@ class Usuario(object):
                 edad=usuario[4],
                 correo_electronico=usuario[5],
                 telefono=usuario[6],
-                nro_tarjeta_bancaria=usuario[7],
-                nombre_usuario=usuario[8],
-                contrasena=usuario[9],
+                contrasena=usuario[7],
                 codigo_usuario=usuario[0]
             )
 
