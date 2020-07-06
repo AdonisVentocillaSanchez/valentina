@@ -75,12 +75,12 @@ for row in rows:
 
 #Inserta datos a la tabla producto
 cursor.execute("""
-INSERT INTO producto(codigo_carrito,codigo_categoria,nombre,descripcion,precio,tienda,stock)
-    VALUES (1,1, 'reloj', 'reloj mecánico de mijo para mujer, artesanía ligera',584.00,'Xiaomi',45 ),
-    (2,2, 'auricular', 'auricular inalámbrico Blueetooth impermeable de deporte, color blanco',70.00,'Lenovo',17),
-    (3,3, 'polo', 'polo deportivo para mujer, color fucsia',24.95,'Diadora',60),
-    (4,4, 'set de mascarillas','utensilios de Belleza', 10.00, 'Miniso',90),
-    (5,5, 'masajeador','masajeador de cuello, lumbar, pierna y mano de 17 cm de longitud', 70.00, 'OEM', 21)
+INSERT INTO producto(codigo_categoria,nombre,descripcion,precio,tienda,stock)
+    VALUES (1, 'reloj', 'reloj mecánico de mijo para mujer, artesanía ligera',584.00,'Xiaomi',45 ),
+    (2, 'auricular', 'auricular inalámbrico Blueetooth impermeable de deporte, color blanco',70.00,'Lenovo',17),
+    (3, 'polo', 'polo deportivo para mujer, color fucsia',24.95,'Diadora',60),
+    (4, 'set de mascarillas','utensilios de Belleza', 10.00, 'Miniso',90),
+    (5, 'masajeador','masajeador de cuello, lumbar, pierna y mano de 17 cm de longitud', 70.00, 'OEM', 21)
     """)
 con.commit()
 

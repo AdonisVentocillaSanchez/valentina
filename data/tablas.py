@@ -90,7 +90,6 @@ DROP TABLE IF EXISTS producto;
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS producto (
     codigo_producto INTEGER PRIMARY KEY AUTOINCREMENT,
-    codigo_carrito INTEGER,
     codigo_categoria INTEGER,
     nombre TEXT NOT NULL,
     descripcion TEXT NOT NULL,

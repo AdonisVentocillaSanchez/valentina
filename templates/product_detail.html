@@ -11,10 +11,10 @@
 {% if product %}
   <div>
     <h2>Detalles del Producto: </h2>
-      <p>Nombre del Producto: {{product[3]}} </p>
-      <p>Tienda: {{product[6]}}</p>
-      <p>Precio: {{product[5]}}</p>
-      <p>Descripción: {{product[4]}}</p>
+      <p>Nombre del Producto: {{product[2]}} </p>
+      <p>Tienda: {{product[5]}}</p>
+      <p>Precio: {{product[4]}}</p>
+      <p>Descripción: {{product[3]}}</p>
       <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="100"><br>
       <a href="{{ url_for('add_cart', id_producto = product[0]) }}">Añadir al carrito</a>
   </div>

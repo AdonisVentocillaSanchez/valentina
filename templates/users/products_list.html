@@ -29,9 +29,9 @@
 <h2>Productos disponibles:</h2>
   {% for product in product_list %}
   <div>
-      <p>Nombre del Producto: {{product[3]}}</p>
-      <p>Tienda: {{product[6]}}</p>
-      <p>Precio: {{product[5]}}</p>
+      <p>Nombre del Producto: {{product[2]}}</p>
+      <p>Tienda: {{product[5]}}</p>
+      <p>Precio: {{product[4]}}</p>
       <img src="https://linio-express.s3-sa-east-1.amazonaws.com/ilustraciones/welcome_illustration.svg" width="100"><br><br>
       <a href="{{ url_for('product_detail', id_producto = product[0]) }}">Ver producto</a>
       <a href="{{ url_for('add_cart', id_producto = product[0]) }}">Añadir al carrito</a>

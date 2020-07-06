@@ -265,9 +265,9 @@ def add_cart(id_producto):
     product = Cproducto.buscar_producto(idprod= idProducto)
     id_user = session["user_id"]
     #Capturamos el precio segun la posicion que se encuentra en la base de datos
-    precio_prod = product[5]
+    precio_prod = product[4]
     #Capturamos el stock segun la posicion que se encuentra en la base de datos
-    stock = product[7]
+    stock = product[6]
     #Verificamos que el stock sea mayor a 0 para agregar el producto al carrito
     if stock>0:
         #Agregamos el producto al carrito
